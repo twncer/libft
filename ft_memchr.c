@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 02:11:33 by btuncer           #+#    #+#             */
-/*   Updated: 2024/11/13 19:04:43 by btuncer          ###   ########.fr       */
+/*   Created: 2024/11/13 01:21:26 by btuncer           #+#    #+#             */
+/*   Updated: 2024/11/13 19:01:57 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	char	*res;
-	char	*p;
+	size_t	counter;
 
-	if (!s1 || !s2)
-		return (NULL);
-	res = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	p = res;
-	if (!res)
-		return (NULL);
-	while (*s1)
-		*res++ = *s1++;
-	while (*s2)
-		*res++ = *s2++;
-	*res = '\0';
-	return (p);
+	counter = 0;
+	while (counter < n)
+	{
+		if (((unsigned char *)s)[counter] == (unsigned char)c)
+			return ((void *)&((unsigned char *)s)[counter]);
+		counter++;
+	}
+	return (NULL);
 }

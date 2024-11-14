@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 02:11:33 by btuncer           #+#    #+#             */
-/*   Updated: 2024/11/13 19:04:43 by btuncer          ###   ########.fr       */
+/*   Created: 2024/11/09 04:43:00 by btuncer           #+#    #+#             */
+/*   Updated: 2024/11/13 19:08:49 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strrchr(const char *s, int c)
 {
-	char	*res;
-	char	*p;
+	char *res;
+	int found;
 
-	if (!s1 || !s2)
-		return (NULL);
-	res = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	p = res;
-	if (!res)
-		return (NULL);
-	while (*s1)
-		*res++ = *s1++;
-	while (*s2)
-		*res++ = *s2++;
-	*res = '\0';
-	return (p);
+	found = 0;
+	while (*s)
+	{
+		if (*s == (char)c)
+		{
+			found = 1;
+			res = (char *)s;
+		}
+		s++;
+	}
+	if (!(char)c)
+		return ((char *)s);
+	if (found)
+		return (res);
+	return (NULL);
 }

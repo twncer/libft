@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 02:11:33 by btuncer           #+#    #+#             */
-/*   Updated: 2024/11/13 19:04:43 by btuncer          ###   ########.fr       */
+/*   Created: 2024/11/13 01:45:20 by btuncer           #+#    #+#             */
+/*   Updated: 2024/11/13 19:02:16 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
-char	*ft_strjoin(char const *s1, char const *s2)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	char	*res;
-	char	*p;
+	size_t	counter;
 
-	if (!s1 || !s2)
-		return (NULL);
-	res = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	p = res;
-	if (!res)
-		return (NULL);
-	while (*s1)
-		*res++ = *s1++;
-	while (*s2)
-		*res++ = *s2++;
-	*res = '\0';
-	return (p);
+	counter = 0;
+	while (counter < n)
+	{
+		if (((unsigned char *)s1)[counter] != ((unsigned char *)s2)[counter])
+			return (((unsigned char *)s1)[counter]
+				- ((unsigned char *)s2)[counter]);
+		counter++;
+	}
+	return (0);
 }

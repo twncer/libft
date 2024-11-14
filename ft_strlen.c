@@ -6,11 +6,11 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:51:32 by btuncer           #+#    #+#             */
-/*   Updated: 2024/11/08 16:11:44 by btuncer          ###   ########.fr       */
+/*   Updated: 2024/11/13 19:05:32 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <stddef.h>
 
 size_t	ft_strlen(const char *s)
 {

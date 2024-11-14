@@ -6,23 +6,33 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 02:19:11 by btuncer           #+#    #+#             */
-/*   Updated: 2024/10/28 17:07:14 by btuncer          ###   ########.fr       */
+/*   Updated: 2024/11/14 04:47:14 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdbool.h>
-#include <stdlib.h>
+#include <stdio.h>
 
-static bool	ft_is_inset(char const c, char const *set)
+static bool	is_inset(char const c, char const *set)
 {
-	bool	in_set;
-
-	in_set = false;
 	while (*set)
-		if (c == *set++)
-			in_set = true;
-	return (in_set);
+	{
+		if (c == *set)
+			return (true);
+		set++;
+	}
+	return (false);
+}
+static bool	rest_is_set(char const *s, char const *set)
+{
+	while (*s)
+	{
+		if (!is_inset(*s, set))
+			return (false);
+		s++;
+	}
+	return (true);
 }
 
 char	*ft_strtrim(char const *s1, char const *set)
@@ -30,25 +40,25 @@ char	*ft_strtrim(char const *s1, char const *set)
 	char			*left;
 	char			*right;
 	char			*res;
-	unsigned int	cnt;
+	unsigned int	counter;
 
-	if (!s1)
+	if (!s1 || !set)
 		return (NULL);
 	left = (char *)s1;
-	right = (char *)(s1 + ft_strlen(s1) - 1);
-	while (ft_is_inset(*left, set) && left++)
-		;
-	while (ft_is_inset(*right, set) && right-- && left != right)
-		;
-	res = malloc(right - left + 2);
+	while (is_inset(*left, set))
+		left++;
+	right = left;
+	while (!rest_is_set(right, set) && *right)
+		right++;
+	res = malloc(right - left + 1);
 	if (!res)
 		return (NULL);
-	cnt = 0;
-	while (right >= left)
+	counter = 0;
+	while (counter < right - left)
 	{
-		*(res + cnt) = *left++;
-		cnt++;
+		res[counter] = left[counter];
+		counter++;
 	}
-	*(res + cnt) = '\0';
+	res[counter] = '\0';
 	return (res);
 }

@@ -6,60 +6,95 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 02:28:32 by btuncer           #+#    #+#             */
-/*   Updated: 2024/11/08 18:37:56 by btuncer          ###   ########.fr       */
+/*   Updated: 2024/11/13 19:04:06 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
-#include "libft.h"
 
-static unsigned int split_count(char const *s, char c)
+static unsigned int	split_count(char const *s, char c)
 {
-    unsigned int counter;
+	unsigned int	counter;
 
-    counter = 0;
-    while (*s)
-    {
-        while (*s == c && *s)
-            s++;
-        if (*s != c && *s)
-        {
-            counter++;
-            while (*s != c && *s)
-                s++;
-        }
-    }
-    return (counter);
+	counter = 0;
+	while (*s)
+	{
+		while (*s == c && *s)
+			s++;
+		if (*s != c && *s)
+		{
+			counter++;
+			while (*s != c && *s)
+				s++;
+		}
+	}
+	return (counter);
 }
-static unsigned int short_len(const char *s, char c)
-{
-    unsigned int counter;
 
-    counter = 0;
-    while (*s != c && *s)
-    {
-        counter++;
-        s++;
-    }
-    return (counter);
-}
-char **ft_split(char const *s, char c)
+static unsigned int	short_len(const char *s, char c)
 {
-    char **split;
-    unsigned int word_counter;
-    unsigned int splits;
+	unsigned int	counter;
 
-    word_counter = 0;
-    splits = split_count(s, c);
+	counter = 0;
+	while (*s != c && *s)
+	{
+		counter++;
+		s++;
+	}
+	return (counter);
 }
-#include <stdio.h>
-int main()
+
+static void	write_word(char **str, const char **s, unsigned int len)
 {
-    char **split = ft_split("burak/tuncer///meraba/mrb/////////////////", '/');
-    while (*split)
-    {
-        printf("%s\n", *split);
-        split++;
-    }
+	unsigned int	counter;
+
+	counter = 0;
+	while (counter < len)
+	{
+		(*str)[counter] = **s;
+		counter++;
+		(*s)++;
+	}
+	(*str)[counter] = '\0';
+}
+
+char	**free_all(char **splitted, unsigned int count)
+{
+	unsigned int	counter;
+
+	counter = 0;
+	while (counter <= count)
+	{
+		free(splitted[counter]);
+		counter++;
+	}
+	free(splitted);
+	return (NULL);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char			**splitted;
+	unsigned int	word_count;
+	unsigned int	counter;
+
+	if (!s)
+		return (NULL);
+	word_count = split_count(s, c);
+	splitted = malloc((word_count + 1) * sizeof(char *));
+	if (!splitted)
+		return (NULL);
+	counter = 0;
+	while (counter < word_count)
+	{
+		while (*s == c && *s)
+			s++;
+		splitted[counter] = malloc(short_len(s, c) + 1);
+		if (!splitted[counter])
+			return (free_all(splitted, counter));
+		write_word(&splitted[counter], &s, short_len(s, c));
+		counter++;
+	}
+	splitted[counter] = NULL;
+	return (splitted);
 }

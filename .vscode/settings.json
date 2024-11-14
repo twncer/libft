@@ -1,4 +1,6 @@
 {
+    "terminal.external.linuxExec": "zsh",
+
     "[c]": {
         "editor.defaultFormatter": "keyhr.42-c-format"
     },
