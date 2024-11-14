@@ -6,7 +6,7 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 18:41:02 by btuncer           #+#    #+#             */
-/*   Updated: 2024/11/13 19:11:49 by btuncer          ###   ########.fr       */
+/*   Updated: 2024/11/14 18:52:16 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	int				occured;
 	unsigned int	counter;
 
-	if (!little || !*little)
+	if (!*little)
 		return ((char *)big);
 	occured = 0;
 	while (*big && len)

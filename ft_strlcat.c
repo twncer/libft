@@ -6,7 +6,7 @@
 /*   By: btuncer <btuncer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 16:34:34 by btuncer           #+#    #+#             */
-/*   Updated: 2024/11/13 19:05:08 by btuncer          ###   ########.fr       */
+/*   Updated: 2024/11/14 18:50:33 by btuncer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t i;
-	size_t dstlen;
-	size_t srclen;
+	size_t	cnt;
+	size_t	dstlen;
+	size_t	srclen;
 
 	dstlen = ft_strlen(dst);
 	srclen = ft_strlen(src);
 	if (size <= dstlen)
 		return (srclen + size);
-	i = 0;
-	while ((dstlen + i) < size - 1 && src[i])
+	cnt = 0;
+	while ((dstlen + cnt) < size - 1 && src[cnt])
 	{
-		dst[dstlen + i] = src[i];
-		i++;
+		dst[dstlen + cnt] = src[cnt];
+		cnt++;
 	}
-	dst[dstlen + i] = '\0';
+	dst[dstlen + cnt] = '\0';
 	return (dstlen + srclen);
 }
